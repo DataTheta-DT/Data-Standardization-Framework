@@ -1,0 +1,395 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Standardized laboratory report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "source",
+    "patient",
+    "results",
+    "validation"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "report_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "file_name",
+        "format",
+        "route"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "file_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "format": {
+          "type": "string"
+        },
+        "route": {
+          "type": "string"
+        },
+        "engine": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "structuring": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "llm": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "How the LLM structuring step behaved for this file: status is one of applied, no_effect, failed, skipped, disabled, not_applicable."
+        }
+      }
+    },
+    "patient": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name_raw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sex": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "male",
+            "female",
+            "other",
+            "unknown",
+            null
+          ]
+        },
+        "age_years": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 130
+        },
+        "dob": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "lab_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "collected_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reported_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "row_number",
+          "raw",
+          "standardized",
+          "mapping",
+          "unit",
+          "validation"
+        ],
+        "properties": {
+          "row_number": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "raw": {
+            "type": "object",
+            "required": [
+              "test_name",
+              "value"
+            ],
+            "properties": {
+              "test_name": {
+                "type": "string"
+              },
+              "value": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reference_range": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "flag": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "standardized": {
+            "type": "object",
+            "properties": {
+              "loinc_num": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^[0-9]+-[0-9]$"
+              },
+              "loinc_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reference_low": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "reference_high": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flag_reported": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "flag_derived": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "comparator": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "mapping": {
+            "type": "object",
+            "required": [
+              "status",
+              "method"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "method": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "score": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "proposed_loinc": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "candidates": {
+                "type": "array"
+              }
+            }
+          },
+          "unit": {
+            "type": "object",
+            "properties": {
+              "original": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "recognized",
+                  "unit_unrecognized",
+                  "unit_missing",
+                  null
+                ]
+              },
+              "ucum": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "canonical": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "conversion": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "extraction": {
+            "type": "object"
+          },
+          "validation": {
+            "type": "object",
+            "required": [
+              "status",
+              "issues"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "PASS",
+                  "WARN",
+                  "FAIL"
+                ]
+              },
+              "confidence": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "severity"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "status",
+        "rows",
+        "pass",
+        "warn",
+        "fail"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "rows": {
+          "type": "integer"
+        },
+        "pass": {
+          "type": "integer"
+        },
+        "warn": {
+          "type": "integer"
+        },
+        "fail": {
+          "type": "integer"
+        },
+        "issues": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}
