@@ -77,5 +77,3 @@ Update `config/pipeline_config.yaml` to customize:
 * [UCUM](https://ucum.org)
 * [PyMuPDF](https://github.com/pymupdf/PyMuPDF)
 * [ONNX Runtime](https://github.com/microsoft/onnxruntime)
-* [RapidOCR](https://github.com/RapidAI/RapidOCR)
-* [RapidFuzz](https://github.com/rapidfuzz/RapidFuzz)
