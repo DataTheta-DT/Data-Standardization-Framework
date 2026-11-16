@@ -42,7 +42,7 @@ Update `config/pipeline_config.yaml` to customize:
 5. Update `config/pipeline_config.yaml` to change project settings.
 6. Configure an LLM API key if LLM-based structuring is required. Otherwise, rule-based processing is used automatically.
 
-#Pipeline
+## Pipeline
 
 * **Setup**  Load configuration and reference data.
 * **Input**  Upload or provide laboratory reports.
